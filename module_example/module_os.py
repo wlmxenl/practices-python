@@ -42,7 +42,7 @@ import os
 
 
 # print(os.path.abspath('module_example')) # 返回路径 path 的绝对路径
-# print(os.path.dirname(os.getcwd())) # 返回路劲 path 所在目录
+# print(os.path.dirname(os.getcwd())) # 返回路径 path 所在目录
 # print(os.path.exists('.gitignore')) # 文件是否存在
 # print(os.path.getsize('.gitignore')) # 返回 path 的大小，以字节为单位
 # print(os.path.isabs(os.getcwd())) # 如果 path 是一个绝对路径，则返回 True
@@ -53,3 +53,5 @@ import os
 # print(os.path.normpath('D://Program Files')) # D:\Program Files, 通过折叠多余的分隔符和对上级目录的引用来标准化路径名
 # print(os.path.relpath('module_example', start=os.curdir)) # 返回从当前目录或可选的 start 目录至 path 的相对文件路径
 # print(os.getcwd(), os.path.split(os.getcwd())) # D:\DevWorkspace\VSCodeProject\practices-python ('D:\\DevWorkspace\\VSCodeProject', 'practices-python')
+# print(os.path.splitext('module_example/module_os.py')) # ('module_example/module_os', '.py'), 分离文件名和拓展名
+# print(os.path.basename('module_example/module_os.py')) # module_os.py, 提取文件名
