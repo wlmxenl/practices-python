@@ -1,5 +1,6 @@
 import os
 
+
 def readFile():
     # 文件读取
     # r  以只读方式打开文件。文件的指针将会放在文件的开头，这是默认模式
@@ -10,12 +11,14 @@ def readFile():
         for line in f.readlines():
             print(line)
 
+
 def writeFile():
     # 文件写入
     # w  打开一个文件只用于写入，如果该文件已存在则将其覆盖。如果该文件不存在，则创建新文件。
     # w+ 可读写
     with open('tmp/file_write.txt', 'w') as f:
         f.write('Python')
+
 
 def appendTextToFile():
     # 文件写入，追加模式
@@ -26,13 +29,14 @@ def appendTextToFile():
             f.write(str(i))
             f.write('\n')
 
+
 def readFileWithSeek():
     with open('assets/lipsum.txt', 'r') as f:
         # seek(offset, from)
         # 参数 offset 偏移量单位字节，负数是往回偏移，正数是往前偏移，
         # from位置：0表示文件的开头，1表示当前位置，2表示文件末尾
         f.seek(10, 0)
-        print(f.read(10)) # 从指定文件指针开始读取10个字符
+        print(f.read(10))  # 从指定文件指针开始读取10个字符
 
 
 def testFlush():
@@ -46,8 +50,9 @@ def testFlush():
     file.write('world')
     file.close()
 
+
 if __name__ == '__main__':
     if not os.path.exists('tmp'):
-      os.mkdir('tmp')
-      
+        os.mkdir('tmp')
+
     testFlush()
