@@ -1,32 +1,45 @@
 import os
 import shutil
+import zipfile
 
 # FinalShell 还原配置从备份目录到安装目录
 # conn 服务器连接信息配置文件夹
 # config.json 基本配置文件
 # knownhosts.json 服务器密钥
 # tconfig.json 一些缓存
-backup_files = ('conn', 'config.json', 'knownhosts.json', 'tconfig.json')
+config_list = ('conn', 'config.json', 'knownhosts.json', 'tconfig.json')
+# 备份文件名
+backup_filename = 'finalshell_config.zip'
+
+
+def unzip_file(zip_path, extract_to):
+    with zipfile.ZipFile(zip_path, 'r') as zip_ref:
+        zip_ref.extractall(extract_to)
+
 
 if __name__ == "__main__":
     # FinalShell 安装目录
-    install_dir_path = os.getenv('FS_INSTALL_PATH')
+    install_dir_path = ""
     # FinalShell 配置备份目录
-    backup_dir_path = os.getenv('FS_BACKUP_PATH')
+    backup_dir_path = ""
 
-    assert (install_dir_path is not None), "无效的安装目录"
-    assert (backup_dir_path is not None), "无效的备份目录"
+    assert len(install_dir_path) > 0, "未配置安装目录"
+    assert len(backup_dir_path) > 0, "未配置备份目录"
 
-    # 备份配置
-    for item in backup_files:
-        src_path = os.path.join(backup_dir_path, item)
-        dst_path = os.path.join(install_dir_path, item)
-        if os.path.isdir(src_path):
-            if os.path.exists(dst_path):
-                shutil.rmtree(dst_path)
-            shutil.copytree(src_path, dst_path)
-        else:
-            shutil.copyfile(src_path, dst_path)
+    # 删除本地配置
+    for item in config_list:
+        filepath = os.path.join(install_dir_path, item)
+
+        if os.path.exists(filepath):
+            if os.path.isdir(filepath):
+                shutil.rmtree(filepath)
+            else:
+                os.remove(filepath)
+
+    # 解压配置至安装目录
+    backup_file_path = os.path.join(backup_dir_path, backup_filename)
+    with zipfile.ZipFile(backup_file_path, 'r') as zip_ref:
+        zip_ref.extractall(install_dir_path)
 
     print("备份目录: %s" % backup_dir_path)
     print("安装目录: %s" % install_dir_path)
