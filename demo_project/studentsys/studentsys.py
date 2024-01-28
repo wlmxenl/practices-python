@@ -1,7 +1,7 @@
 import os
 
 
-filename = "tmp/studentsys/data.txt"
+filename = "tmp_polyline_data/studentsys/data.txt"
 
 def menu():
     print('\n')
